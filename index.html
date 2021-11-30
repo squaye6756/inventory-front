@@ -6,7 +6,22 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.min.js"></script>
         <script src="app.js" charset="utf-8"></script>
     </head>
-    <body ng-controller='login as login'>
-        <h1>{{login.label}}</h1>
+    <body ng-controller='Controller as ctrl'>
+        <!-- <form>
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username"/>
+            <label for="password">Password: </label>
+            <input type="password" name="password"/>
+            <input type="submit" name="" value="Log In"/>
+        </form> -->
+
+        <form ng-submit='ctrl.createUser()'>
+            {{ctrl.username}} - {{ctrl.password}}
+            <label for="username">Create Username: </label>
+            <input type="text" name="username" id="username" ng-model="ctrl.username"/>
+            <label for="password">Create Password: </label>
+            <input type="password" name="password" ng-model="ctrl.password"/>
+            <input type="submit" name="" value="Sign Up"/>
+        </form>
     </body>
 </html>
