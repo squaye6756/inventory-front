@@ -29,9 +29,9 @@
             <label for="name">Product Name: </label>
             <input type="text" name="name" ng-model="ctrl.name"/>
             <label for="price">Price: </label>
-            <input type="number" name="price" ng-model="ctrl.price"/>
+            <input type="number" name="price" min="0" ng-model="ctrl.price"/>
             <label for="quantity">Quantity: </label>
-            <input type="number" name="quantity" ng-model="ctrl.quantity"/>
+            <input type="number" name="quantity" min="0" ng-model="ctrl.quantity"/>
             <input type="submit" value="Add Item"/>
         </form>
 
@@ -41,7 +41,23 @@
                 <h3>{{item.name}}</h3>
                 <p>Quantity: {{item.quantity}}</p>
                 <p>Price: ${{item.price}}</p>
-                <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
+                <!-- <div class="buttons"> -->
+                    <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
+                    <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
+                    <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
+                <!-- </div> -->
+                <details>
+                    <summary>Edit Item</summary>
+                    <form ng-submit='ctrl.handlePut(item)'>
+                        <label for="name">Product Name: </label>
+                        <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
+                        <label for="price">Price: </label>
+                        <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
+                        <label for="quantity">Quantity: </label>
+                        <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
+                        <input type="submit" value="Submit Edits"/>
+                    </form>
+                </details>
             </div>
         </div>
     </body>
