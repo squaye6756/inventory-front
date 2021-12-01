@@ -7,18 +7,19 @@
         <script src="app.js" charset="utf-8"></script>
     </head>
     <body ng-controller='Controller as ctrl'>
-        <!-- <form>
+        <form ng-submit='ctrl.login()'>
+            {{ctrl.usernameId}} - {{ctrl.passwordId}}
             <label for="username">Username: </label>
-            <input type="text" name="username" id="username"/>
+            <input type="text" name="username" ng-model="ctrl.usernameId"/>
             <label for="password">Password: </label>
-            <input type="password" name="password"/>
-            <input type="submit" name="" value="Log In"/>
-        </form> -->
+            <input type="password" name="password" ng-model="ctrl.passwordId"/>
+            <input type="submit" value="Log In"/>
+        </form>
 
         <form ng-submit='ctrl.createUser()'>
             {{ctrl.username}} - {{ctrl.password}}
             <label for="username">Create Username: </label>
-            <input type="text" name="username" id="username" ng-model="ctrl.username"/>
+            <input type="text" name="username" ng-model="ctrl.username"/>
             <label for="password">Create Password: </label>
             <input type="password" name="password" ng-model="ctrl.password"/>
             <input type="submit" value="Sign Up"/>
@@ -26,12 +27,14 @@
 
         <form ng-submit='ctrl.addItem()'>
             <label for="name">Product Name: </label>
-            <input type="text" name="name" id="name" ng-model="ctrl.name"/>
+            <input type="text" name="name" ng-model="ctrl.name"/>
             <label for="price">Price: </label>
-            <input type="number" name="price" id="price" ng-model="ctrl.price"/>
+            <input type="number" name="price" ng-model="ctrl.price"/>
             <label for="quantity">Quantity: </label>
-            <input type="number" name="quantity" id="quantity" ng-model="ctrl.quantity"/>
+            <input type="number" name="quantity" ng-model="ctrl.quantity"/>
             <input type="submit" value="Add Item"/>
         </form>
+
+        <h1 ng-if='ctrl.loggedInUser.username'>Welcome, {{ctrl.loggedInUser.username}}</h1>
     </body>
 </html>
