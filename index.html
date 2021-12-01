@@ -8,7 +8,7 @@
     </head>
     <body ng-controller='Controller as ctrl'>
         <form ng-submit='ctrl.login()'>
-            {{ctrl.usernameId}} - {{ctrl.passwordId}}
+            <!-- {{ctrl.usernameId}} - {{ctrl.passwordId}} -->
             <label for="username">Username: </label>
             <input type="text" name="username" ng-model="ctrl.usernameId"/>
             <label for="password">Password: </label>
@@ -17,7 +17,7 @@
         </form>
 
         <form ng-submit='ctrl.createUser()'>
-            {{ctrl.username}} - {{ctrl.password}}
+            <!-- {{ctrl.username}} - {{ctrl.password}} -->
             <label for="username">Create Username: </label>
             <input type="text" name="username" ng-model="ctrl.username"/>
             <label for="password">Create Password: </label>
@@ -36,5 +36,13 @@
         </form>
 
         <h1 ng-if='ctrl.loggedInUser.username'>Welcome, {{ctrl.loggedInUser.username}}</h1>
+        <div class='all-items'>
+            <div ng-repeat='item in ctrl.itemList'>
+                <h3>{{item.name}}</h3>
+                <p>Quantity: {{item.quantity}}</p>
+                <p>Price: ${{item.price}}</p>
+                <!-- <button value></button> -->
+            </div>
+        </div>
     </body>
 </html>

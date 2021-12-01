@@ -10,8 +10,9 @@ app.controller('Controller', ['$http', function($http) {
     this.quantity = null;
     this.price = null;
     this.loggedInUser = null;
+    this.itemList = null;
 
-    this.createUser = function() {
+    this.createUser = () => {
         // console.log('func called');
         $http(
             {
@@ -23,14 +24,14 @@ app.controller('Controller', ['$http', function($http) {
                 }
             }
         )
-        .then(function(response) {
+        .then((response) => {
             console.log('successful user made', response.data);
-        }, function() {
+        }, () => {
             console.log('error');
         });
     }
 
-    this.login = function() {
+    this.login = () => {
         $http(
             {
                 method:'PUT',
@@ -41,7 +42,7 @@ app.controller('Controller', ['$http', function($http) {
                 }
             }
         )
-        .then(function(response) {
+        .then((response) => {
             if (response.data.username) {
                 console.log(response.data);
                 this.loggedInUser = response.data;
@@ -52,12 +53,27 @@ app.controller('Controller', ['$http', function($http) {
                 this.passwordId = null;
                 console.log('unsuccessful login', response.data.error);
             }
-        }, function() {
+        }, () => {
             console.log('error');
         });
     }
 
-    this.addItem = function() {
+    this.getItemList = () => {
+        $http(
+            {
+                method: 'GET',
+                url: 'https://inventorial-back.herokuapp.com/api/items'
+            }
+        )
+        .then((response) => {
+            this.itemList = response.data;
+            console.log(this.itemList);
+        }, error => {
+            console.log('error in getItemList', error);
+        });
+    }
+
+    this.addItem = () => {
         $http(
             {
                 method: 'POST',
@@ -69,12 +85,19 @@ app.controller('Controller', ['$http', function($http) {
                 }
             }
         )
-        .then(function(response) {
+        .then((response) => {
             console.log('successful item made', response.data);
-        }, function() {
+            this.getItemList();
+        }, () => {
             console.log('error');
         });
     }
+
+    // this.deleteItem = function() {
+    //
+    // }
+
+    this.getItemList();
 
     }]
 );
