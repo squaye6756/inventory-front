@@ -21,7 +21,17 @@
             <input type="text" name="username" id="username" ng-model="ctrl.username"/>
             <label for="password">Create Password: </label>
             <input type="password" name="password" ng-model="ctrl.password"/>
-            <input type="submit" name="" value="Sign Up"/>
+            <input type="submit" value="Sign Up"/>
+        </form>
+
+        <form ng-submit='ctrl.addItem()'>
+            <label for="name">Product Name: </label>
+            <input type="text" name="name" id="name" ng-model="ctrl.name"/>
+            <label for="price">Price: </label>
+            <input type="number" name="price" id="price" ng-model="ctrl.price"/>
+            <label for="quantity">Quantity: </label>
+            <input type="number" name="quantity" id="quantity" ng-model="ctrl.quantity"/>
+            <input type="submit" value="Add Item"/>
         </form>
     </body>
 </html>
