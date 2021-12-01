@@ -93,9 +93,17 @@ app.controller('Controller', ['$http', function($http) {
         });
     }
 
-    // this.deleteItem = function() {
-    //
-    // }
+    this.deleteItem = (id) => {
+        $http(
+            {
+                method: 'DELETE',
+                url: `https://inventorial-back.herokuapp.com/api/items/${id}`
+            }
+        )
+        .then((response) => {
+            this.getItemList();
+        });
+    }
 
     this.getItemList();
 
