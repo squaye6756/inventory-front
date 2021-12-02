@@ -7,58 +7,70 @@
         <script src="app.js" charset="utf-8"></script>
     </head>
     <body ng-controller='Controller as ctrl'>
-        <form ng-submit='ctrl.login()'>
-            <!-- {{ctrl.usernameId}} - {{ctrl.passwordId}} -->
-            <label for="username">Username: </label>
-            <input type="text" name="username" ng-model="ctrl.usernameId"/>
-            <label for="password">Password: </label>
-            <input type="password" name="password" ng-model="ctrl.passwordId"/>
-            <input type="submit" value="Log In"/>
-        </form>
+        <div class="" ng-if='!ctrl.loggedInUser'>
+            <h1>Log In:</h1>
+            <form ng-submit='ctrl.login()'>
+                <!-- {{ctrl.usernameId}} - {{ctrl.passwordId}} -->
+                <label for="username">Username: </label>
+                <input type="text" name="username" ng-model="ctrl.usernameId"/>
+                <label for="password">Password: </label>
+                <input type="password" name="password" ng-model="ctrl.passwordId"/>
+                <input type="submit" value="Log In"/>
+            </form>
 
-        <form ng-submit='ctrl.createUser()'>
-            <!-- {{ctrl.username}} - {{ctrl.password}} -->
-            <label for="username">Create Username: </label>
-            <input type="text" name="username" ng-model="ctrl.username"/>
-            <label for="password">Create Password: </label>
-            <input type="password" name="password" ng-model="ctrl.password"/>
-            <input type="submit" value="Sign Up"/>
-        </form>
+            <h1>Sign Up:</h1>
+            <form ng-submit='ctrl.createUser()'>
+                <!-- {{ctrl.username}} - {{ctrl.password}} -->
+                <label for="username">Create Username: </label>
+                <input type="text" name="username" ng-model="ctrl.username"/>
+                <label for="password">Create Password: </label>
+                <input type="password" name="password" ng-model="ctrl.password"/>
+                <input type="submit" value="Sign Up"/>
+            </form>
+        </div>
 
-        <form ng-submit='ctrl.addItem()'>
-            <label for="name">Product Name: </label>
-            <input type="text" name="name" ng-model="ctrl.name"/>
-            <label for="price">Price: </label>
-            <input type="number" name="price" min="0" ng-model="ctrl.price"/>
-            <label for="quantity">Quantity: </label>
-            <input type="number" name="quantity" min="0" ng-model="ctrl.quantity"/>
-            <input type="submit" value="Add Item"/>
-        </form>
+        <div ng-if='ctrl.loggedInUser.username'>
+            <div class="intro">
+                <h1>Welcome, {{ctrl.loggedInUser.username}}</h1>
+                <button ng-click='ctrl.logout()'>Logout</button>
+            </div>
 
-        <h1 ng-if='ctrl.loggedInUser.username'>Welcome, {{ctrl.loggedInUser.username}}</h1>
-        <div class='all-items'>
-            <div ng-repeat='item in ctrl.itemList'>
-                <h3>{{item.name}}</h3>
-                <p>Quantity: {{item.quantity}}</p>
-                <p>Price: ${{item.price}}</p>
-                <!-- <div class="buttons"> -->
-                    <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
-                    <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
-                    <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
-                <!-- </div> -->
-                <details>
-                    <summary>Edit Item</summary>
-                    <form ng-submit='ctrl.handlePut(item)'>
-                        <label for="name">Product Name: </label>
-                        <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
-                        <label for="price">Price: </label>
-                        <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
-                        <label for="quantity">Quantity: </label>
-                        <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
-                        <input type="submit" value="Submit Edits"/>
-                    </form>
-                </details>
+            <h1>Add Item</h1>
+            <form ng-submit='ctrl.addItem()'>
+                <label for="name">Product Name: </label>
+                <input type="text" name="name" ng-model="ctrl.name"/>
+                <label for="price">Price: </label>
+                <input type="number" name="price" min="0" ng-model="ctrl.price"/>
+                <label for="quantity">Quantity: </label>
+                <input type="number" name="quantity" min="0" ng-model="ctrl.quantity"/>
+                <input type="submit" value="Add Item"/>
+            </form>
+
+            <div class='all-items'>
+                <div ng-repeat='item in ctrl.itemList'>
+                    <h3>{{item.name}}</h3>
+                    <p>Quantity: {{item.quantity}}</p>
+                    <p>Price: ${{item.price}}</p>
+                    <!-- <div class="buttons"> -->
+                        <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
+                        <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
+                        <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
+                    <!-- </div> -->
+                    <details>
+                        <summary>Edit Item</summary>
+                        <form ng-submit='ctrl.handlePut(item)'>
+                            <label for="name">Product Name: </label>
+                            <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
+                            <label for="price">Price: </label>
+                            <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
+                            <label for="quantity">Quantity: </label>
+                            <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
+                            <input type="submit" value="Submit Edits"/>
+                        </form>
+                    </details>
+                </div>
             </div>
         </div>
+
     </body>
 </html>
