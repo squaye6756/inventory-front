@@ -11,6 +11,9 @@ app.controller('Controller', ['$http', function($http) {
     this.price = null;
     this.loggedInUser = null;
     this.itemList = null;
+    this.nameEdit = null;
+    this.quantityEdit = null;
+    this.priceEdit = null;
 
     this.createUser = () => {
         // console.log('func called');
@@ -26,6 +29,7 @@ app.controller('Controller', ['$http', function($http) {
         )
         .then((response) => {
             console.log('successful user made', response.data);
+            this.loggedInUser = response.data;
         }, () => {
             console.log('error');
         });
@@ -81,7 +85,7 @@ app.controller('Controller', ['$http', function($http) {
                 data: {
                     name: this.name,
                     price: this.price,
-                    quantity: this.quantity,
+                    quantity: this.quantity
                 }
             }
         )
@@ -98,6 +102,57 @@ app.controller('Controller', ['$http', function($http) {
             {
                 method: 'DELETE',
                 url: `https://inventorial-back.herokuapp.com/api/items/${id}`
+            }
+        )
+        .then((response) => {
+            this.getItemList();
+        });
+    }
+
+    this.incrementQuantity = (item) => {
+        $http(
+            {
+                method: 'PUT',
+                url: `https://inventorial-back.herokuapp.com/api/items/${item.id}`,
+                data: {
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity + 1
+                }
+            }
+        )
+        .then((response) => {
+            this.getItemList();
+        });
+    }
+
+    this.decrementQuantity = (item) => {
+        $http(
+            {
+                method: 'PUT',
+                url: `https://inventorial-back.herokuapp.com/api/items/${item.id}`,
+                data: {
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity - 1
+                }
+            }
+        )
+        .then((response) => {
+            this.getItemList();
+        });
+    }
+
+    this.handlePut = (item) => {
+        $http(
+            {
+                method: 'PUT',
+                url: `https://inventorial-back.herokuapp.com/api/items/${item.id}`,
+                data: {
+                    name: this.nameEdit,
+                    price: this.priceEdit,
+                    quantity: this.quantityEdit
+                }
             }
         )
         .then((response) => {
