@@ -28,8 +28,10 @@ app.controller('Controller', ['$http', function($http) {
             }
         )
         .then((response) => {
-            console.log('successful user made', response.data);
+            // console.log('successful user made', response.data);
             this.loggedInUser = response.data;
+            this.username = null;
+            this.password = null;
         }, () => {
             console.log('error');
         });
@@ -48,15 +50,15 @@ app.controller('Controller', ['$http', function($http) {
         )
         .then((response) => {
             if (response.data.username) {
-                console.log(response.data);
+                // console.log(response.data);
                 this.loggedInUser = response.data;
-                console.log('successful login', response.data);
-                console.log(this.loggedInUser);
+                // console.log('successful login', response.data);
+                // console.log(this.loggedInUser);
             } else {
-                this.usernameId = null;
-                this.passwordId = null;
                 console.log('unsuccessful login', response.data.error);
             }
+            this.usernameId = null;
+            this.passwordId = null;
         }, () => {
             console.log('error');
         });
@@ -71,7 +73,7 @@ app.controller('Controller', ['$http', function($http) {
         )
         .then((response) => {
             this.itemList = response.data;
-            console.log(this.itemList);
+            // console.log(this.itemList);
         }, error => {
             console.log('error in getItemList', error);
         });
@@ -90,7 +92,7 @@ app.controller('Controller', ['$http', function($http) {
             }
         )
         .then((response) => {
-            console.log('successful item made', response.data);
+            // console.log('successful item made', response.data);
             this.getItemList();
         }, () => {
             console.log('error');
@@ -149,15 +151,22 @@ app.controller('Controller', ['$http', function($http) {
                 method: 'PUT',
                 url: `https://inventorial-back.herokuapp.com/api/items/${item.id}`,
                 data: {
-                    name: this.nameEdit,
-                    price: this.priceEdit,
-                    quantity: this.quantityEdit
+                    name: this.nameEdit || item.name,
+                    price: this.priceEdit || item.price,
+                    quantity: this.quantityEdit || item.quantity
                 }
             }
         )
         .then((response) => {
             this.getItemList();
+            this.nameEdit = null;
+            this.quantityEdit = null;
+            this.priceEdit = null;
         });
+    }
+
+    this.logout = () => {
+        this.loggedInUser = null;
     }
 
     this.getItemList();

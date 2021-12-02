@@ -49,8 +49,8 @@
             <div class='all-items'>
                 <div ng-repeat='item in ctrl.itemList'>
                     <h3>{{item.name}}</h3>
-                    <p>Quantity: {{item.quantity}}</p>
                     <p>Price: ${{item.price}}</p>
+                    <p>Quantity: {{item.quantity}}</p>
                     <!-- <div class="buttons"> -->
                         <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
                         <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
