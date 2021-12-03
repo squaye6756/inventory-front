@@ -1,0 +1,9 @@
+#add-item-div, #search-div {
+    display: none;
+}
+
+.all-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
