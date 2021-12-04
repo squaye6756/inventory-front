@@ -22,6 +22,7 @@ app.controller('Controller', ['$http', function($http) {
     this.maxPriceSearch = null;
     this.useSearch = false;
     this.searchItemList = null;
+    this.haveAcct = true;
 
     this.createUser = () => {
         // console.log('func called');
@@ -71,6 +72,12 @@ app.controller('Controller', ['$http', function($http) {
         }, () => {
             console.log('error');
         });
+    }
+
+    this.toggleAuthForm = (event) => {
+        this.haveAcct = !this.haveAcct;
+        const authFormBtn = event.currentTarget;
+        authFormBtn.innerHTML = authFormBtn.innerHTML === 'Need An Account?' ? 'Already Have An Account?' : 'Need An Account?';
     }
 
     this.loginWithSavedUser = () => {
