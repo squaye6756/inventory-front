@@ -2,7 +2,6 @@ const app = angular.module('InventoryApp', []);
 inventorialStorage = window.sessionStorage;
 
 app.controller('Controller', ['$http', function($http) {
-    // console.log('load');
     this.username = null;
     this.password = null;
     this.usernameId = null;
@@ -25,7 +24,6 @@ app.controller('Controller', ['$http', function($http) {
     this.haveAcct = true;
 
     this.createUser = () => {
-        // console.log('func called');
         $http(
             {
                 method:'POST',
@@ -37,7 +35,6 @@ app.controller('Controller', ['$http', function($http) {
             }
         )
         .then((response) => {
-            // console.log('successful user made', response.data);
             this.loggedInUser = response.data;
             this.username = null;
             this.password = null;
@@ -59,10 +56,7 @@ app.controller('Controller', ['$http', function($http) {
         )
         .then((response) => {
             if (response.data.username) {
-                // console.log(response.data);
                 this.loggedInUser = response.data;
-                // console.log('successful login', response.data);
-                // console.log(this.loggedInUser);
                 inventorialStorage.setItem('user', JSON.stringify(this.loggedInUser));
             } else {
                 console.log('unsuccessful login', response.data.error);
@@ -82,7 +76,6 @@ app.controller('Controller', ['$http', function($http) {
 
     this.loginWithSavedUser = () => {
         const savedUser = JSON.parse(inventorialStorage.getItem('user'));
-        // console.log(savedUser);
         this.loggedInUser = savedUser;
     }
 
@@ -95,7 +88,6 @@ app.controller('Controller', ['$http', function($http) {
         )
         .then((response) => {
             this.itemList = response.data;
-            // console.log(this.itemList);
         }, error => {
             console.log('error in getItemList', error);
         });
@@ -114,7 +106,6 @@ app.controller('Controller', ['$http', function($http) {
             }
         )
         .then((response) => {
-            // console.log('successful item made', response.data);
             this.getItemList();
             this.name = null;
             this.quantity = null;
@@ -209,11 +200,20 @@ app.controller('Controller', ['$http', function($http) {
         displayItemBtn.innerHTML = displayItemBtn.innerHTML === 'Show All Items' ? 'Hide All Items' : 'Show All Items';
     }
 
+    const clearSearchForm = () => {
+        this.nameSearch = null;
+        this.minQuanSearch = null;
+        this.minPriceSearch = null;
+        this.maxQuanSearch = null;
+        this.maxPriceSearch = null;
+    }
+
     this.toggleDisplaySearch = (event) => {
         const searchDiv = document.getElementById('search-div');
         searchDiv.style.display = searchDiv.style.display === 'block' ? 'none' : 'block';
         const displaySearchBtn = event.currentTarget;
         displaySearchBtn.innerHTML = displaySearchBtn.innerHTML === 'Cancel' ? 'Search Items' : 'Cancel';
+        clearSearchForm();
     }
 
     this.search = () => {
@@ -231,14 +231,13 @@ app.controller('Controller', ['$http', function($http) {
                     && (item.quantity >= this.minQuanSearch || !this.minQuanSearch && this.minQuanSearch !== 0)
                 );
             });
-            this.nameSearch = null;
-            this.quantitySearch = null;
-            this.priceSearch = null;
+            clearSearchForm();
             this.useSearch = true;
         }
     }
 
     this.endSearch = () => {
+        clearSearchForm();
         this.useSearch = false;
     }
 
