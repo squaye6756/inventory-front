@@ -48,10 +48,14 @@
                 <form ng-submit='ctrl.search()'>
                     <label for="name">Product Name: </label>
                     <input type="text" name="name" value="item.name" ng-model="ctrl.nameSearch"/>
-                    <label for="price">Price: </label>
-                    <input type="number" name="price" min="0" ng-model="ctrl.priceSearch"/>
-                    <label for="quantity">Quantity: </label>
-                    <input type="number" name="quantity" min="0" ng-model="ctrl.quantitySearch"/>
+                    <label for="min-price">Price (min): </label>
+                    <input type="number" name="min-price" min="0" ng-model="ctrl.minPriceSearch"/>
+                    <label for="max-price">Price (max): </label>
+                    <input type="number" name="max-price" min="0" ng-model="ctrl.maxPriceSearch"/>
+                    <label for="min-quantity">Quantity (min): </label>
+                    <input type="number" name="min-quantity" min="0" ng-model="ctrl.minQuanSearch"/>
+                    <label for="max-quantity">Quantity (max): </label>
+                    <input type="number" name="max-quantity" min="0" ng-model="ctrl.maxQuanSearch"/>
                     <input type="submit" value="Search"/>
                 </form>
             </div>
