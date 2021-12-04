@@ -54,16 +54,26 @@
             <div id='search-div'>
                 <h1>Item Search</h1>
                 <form ng-submit='ctrl.search()'>
-                    <label for="name">Product Name: </label>
-                    <input type="text" name="name" value="item.name" ng-model="ctrl.nameSearch"/>
-                    <label for="min-price">Price (min): </label>
-                    <input type="number" name="min-price" min="0" ng-model="ctrl.minPriceSearch"/>
-                    <label for="max-price">Price (max): </label>
-                    <input type="number" name="max-price" min="0" ng-model="ctrl.maxPriceSearch"/>
-                    <label for="min-quantity">Quantity (min): </label>
-                    <input type="number" name="min-quantity" min="0" ng-model="ctrl.minQuanSearch"/>
-                    <label for="max-quantity">Quantity (max): </label>
-                    <input type="number" name="max-quantity" min="0" ng-model="ctrl.maxQuanSearch"/>
+                    <div class="search-form-elmt">
+                        <label for="name">Product Name: </label>
+                        <input type="text" name="name" value="item.name" ng-model="ctrl.nameSearch"/>
+                    </div>
+                    <div class="search-form-elmt">
+                        <label for="min-price">Price (min): </label>
+                        <input type="number" name="min-price" min="0" ng-model="ctrl.minPriceSearch"/>
+                    </div>
+                    <div class="search-form-elmt">
+                        <label for="max-price">Price (max): </label>
+                        <input type="number" name="max-price" min="0" ng-model="ctrl.maxPriceSearch"/>
+                    </div>
+                    <div class="search-form-elmt">
+                        <label for="min-quantity">Quantity (min): </label>
+                        <input type="number" name="min-quantity" min="0" ng-model="ctrl.minQuanSearch"/>
+                    </div>
+                    <div class="search-form-elmt">
+                        <label for="max-quantity">Quantity (max): </label>
+                        <input type="number" name="max-quantity" min="0" ng-model="ctrl.maxQuanSearch"/>
+                    </div>
                     <input type="submit" value="Search"/>
                 </form>
             </div>
@@ -71,15 +81,23 @@
             <div id="add-item-div">
                 <h1>Add Item</h1>
                 <form id='add-item-form' ng-submit='ctrl.addItem()'>
-                    <label for="name">Product Name: </label>
-                    <input type="text" name="name" ng-model="ctrl.name"/>
-                    <label for="price">Price: </label>
-                    <input type="number" name="price" min="0" ng-model="ctrl.price"/>
-                    <label for="quantity">Quantity: </label>
-                    <input type="number" name="quantity" min="0" ng-model="ctrl.quantity"/>
+                    <div class="add-form-elmt">
+                        <label for="name">Product Name: </label>
+                        <input type="text" name="name" ng-model="ctrl.name"/>
+                    </div>
+                    <div class="add-form-elmt">
+                        <label for="price">Price: </label>
+                        <input type="number" name="price" min="0" ng-model="ctrl.price"/>
+                    </div>
+                    <div class="add-form-elmt">
+                        <label for="quantity">Quantity: </label>
+                        <input type="number" name="quantity" min="0" ng-model="ctrl.quantity"/>
+                    </div>
                     <input type="submit" value="Add Item"/>
                 </form>
             </div>
+
+            <hr/>
 
             <div class='item-div' ng-if='ctrl.itemList.length > 0'>
                 <div id='all-items' ng-hide='ctrl.useSearch'>

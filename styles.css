@@ -25,6 +25,7 @@
     flex-direction: column;
     align-items: center;
     margin: 2em;
+    margin-top: 0;
 }
 
 .item-listing p {
@@ -37,4 +38,9 @@
 
 .edit-form {
     text-align: center;
+}
+
+#add-item-div, #search-div, #show-hide-btns {
+    text-align: center;
+    margin-bottom: 0.7em;
 }
