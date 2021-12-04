@@ -18,6 +18,8 @@ app.controller('Controller', ['$http', function($http) {
     this.nameSearch = null;
     this.quantitySearch = null;
     this.priceSearch = null;
+    this.useSearch = false;
+    this.searchItemList = null;
 
     this.createUser = () => {
         // console.log('func called');
@@ -202,7 +204,7 @@ app.controller('Controller', ['$http', function($http) {
         const searchDiv = document.getElementById('search-div');
         searchDiv.style.display = searchDiv.style.display === 'block' ? 'none' : 'block';
         const displaySearchBtn = event.currentTarget;
-        displaySearchBtn.innerHTML = displaySearchBtn.innerHTML === 'Cancel' ? 'Add Item' : 'Cancel';
+        displaySearchBtn.innerHTML = displaySearchBtn.innerHTML === 'Cancel' ? 'Search Items' : 'Cancel';
     }
 
     this.search = () => {
@@ -222,15 +224,23 @@ app.controller('Controller', ['$http', function($http) {
         //         console.log('quantity of item', item.quantity);
         //     }
         // }
-        const searchedItems = this.itemList.filter((item) => {
-            return (item.name.includes(this.nameSearch)
-                && item.price <= this.priceSearch
-                && item.quantity >= this.quantitySearch
+        this.searchItemList = this.itemList.filter((item) => {
+            return (
+                (item.name.includes(this.nameSearch) || !this.nameSearch)
+                && (item.price <= this.priceSearch || !this.priceSearch)
+                && (item.quantity >= this.quantitySearch || !this.quantitySearch)
             );
         });
-        console.log('result', searchedItems);
+        this.nameSearch = null;
+        this.quantitySearch = null;
+        this.priceSearch = null;
+        this.useSearch = true;
+        // console.log('result', this.searchItemList);
     }
 
+    this.endSearch = () => {
+        this.useSearch = false;
+    }
 
     this.loginWithSavedUser();
     this.getItemList();
