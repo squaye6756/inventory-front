@@ -12,30 +12,36 @@
     <body ng-controller='Controller as ctrl'>
         <div id='auth-forms' ng-if='!ctrl.loggedInUser'>
             <div id="login-auth" ng-show='ctrl.haveAcct'>
-                <h1>Log In:</h1>
+                <h1><u>Log In</u></h1>
                 <form ng-submit='ctrl.login()'>
-                    <!-- {{ctrl.usernameId}} - {{ctrl.passwordId}} -->
-                    <label for="username">Username: </label>
-                    <input type="text" name="username" ng-model="ctrl.usernameId"/>
-                    <label for="password">Password: </label>
-                    <input type="password" name="password" ng-model="ctrl.passwordId"/>
+                    <div class="auth-form-elmt">
+                        <label for="username">Username: </label>
+                        <input type="text" name="username" ng-model="ctrl.usernameId"/>
+                    </div>
+                    <div class="auth-form-elmt">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" ng-model="ctrl.passwordId"/>
+                    </div>
                     <input type="submit" value="Log In"/>
                 </form>
             </div>
 
             <div id="signup-auth" ng-hide='ctrl.haveAcct'>
-                <h1>Sign Up:</h1>
+                <h1><u>Sign Up</u></h1>
                 <form ng-submit='ctrl.createUser()'>
-                    <!-- {{ctrl.username}} - {{ctrl.password}} -->
-                    <label for="username">Create Username: </label>
-                    <input type="text" name="username" ng-model="ctrl.username"/>
-                    <label for="password">Create Password: </label>
-                    <input type="password" name="password" ng-model="ctrl.password"/>
+                    <div class="auth-form-elmt">
+                        <label for="username">Create Username: </label>
+                        <input type="text" name="username" ng-model="ctrl.username"/>
+                    </div>
+                    <div class="auth-form-elmt">
+                        <label for="password">Create Password: </label>
+                        <input type="password" name="password" ng-model="ctrl.password"/>
+                    </div>
                     <input type="submit" value="Sign Up"/>
                 </form>
             </div>
 
-            <button ng-click='ctrl.toggleAuthForm($event)'>Need An Account?</button>
+            <button id='toggle-auth-btn' ng-click='ctrl.toggleAuthForm($event)'>Need An Account?</button>
         </div>
 
         <div ng-if='ctrl.loggedInUser.username'>

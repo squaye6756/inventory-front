@@ -40,7 +40,11 @@
     text-align: center;
 }
 
-#add-item-div, #search-div, #show-hide-btns {
+#add-item-div, #search-div, #show-hide-btns, #auth-forms {
     text-align: center;
     margin-bottom: 0.7em;
+}
+
+#toggle-auth-btn {
+    margin-top: 0.7em;
 }
