@@ -40,6 +40,7 @@
                 <button ng-click='ctrl.toggleDisplayAdd($event)'>Add Item</button>
                 <button ng-click='ctrl.toggleDisplayItems($event)'>Hide All Items</button>
                 <button ng-click='ctrl.toggleDisplaySearch($event)'>Search Items</button>
+                <button ng-show='ctrl.useSearch' ng-click='ctrl.endSearch()'>Close Search View</button>
             </div>
 
             <div id='search-div'>
@@ -68,29 +69,67 @@
                 </form>
             </div>
 
-            <div id='all-items' ng-if='ctrl.itemList.length > 0'>
-                <h1>Items</h1>
-                <div ng-repeat='item in ctrl.itemList'>
-                    <h3>{{item.name}}</h3>
-                    <p>Price: ${{item.price}}</p>
-                    <p>Quantity: {{item.quantity}}</p>
-                    <!-- <div class="buttons"> -->
-                        <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
-                        <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
-                        <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
-                    <!-- </div> -->
-                    <details>
-                        <summary>Edit Item</summary>
-                        <form ng-submit='ctrl.handlePut(item)'>
-                            <label for="name">Product Name: </label>
-                            <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
-                            <label for="price">Price: </label>
-                            <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
-                            <label for="quantity">Quantity: </label>
-                            <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
-                            <input type="submit" value="Submit Edits"/>
-                        </form>
-                    </details>
+            <div class='item-div' ng-if='ctrl.itemList.length > 0'>
+                <div id='all-items' ng-hide='ctrl.useSearch'>
+                    <h2 ng-hide='ctrl.itemList.length <= 0'>Items</h2>
+                    <h2 ng-show='ctrl.itemList.length <= 0'>No Items Here</h2>
+                    <div class='items-container'>
+                        <div ng-repeat='item in ctrl.itemList'>
+                            <div class="item-listing">
+                                <h3>{{item.name}}</h3>
+                                <p>Price: ${{item.price}}</p>
+                                <p>Quantity: {{item.quantity}}</p>
+                                <!-- <div class="buttons"> -->
+                                    <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
+                                    <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
+                                    <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
+                                <!-- </div> -->
+                                <details>
+                                    <summary>Edit Item</summary>
+                                    <form ng-submit='ctrl.handlePut(item)'>
+                                        <label for="name">Product Name: </label>
+                                        <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
+                                        <label for="price">Price: </label>
+                                        <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
+                                        <label for="quantity">Quantity: </label>
+                                        <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
+                                        <input type="submit" value="Submit Edits"/>
+                                    </form>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='search-items' ng-show='ctrl.useSearch' ng-hide='!ctrl.useSearch'>
+                    <h2 ng-hide='ctrl.searchItemList.length <= 0'>Search List</h2>
+                    <h3 ng-show='ctrl.searchItemList.length <= 0'>No Items Matched Your Search</h3>
+                    <div class='items-container'>
+                        <div ng-repeat='item in ctrl.searchItemList'>
+                            <div class="item-listing">
+                                <h3>{{item.name}}</h3>
+                                <p>Price: ${{item.price}}</p>
+                                <p>Quantity: {{item.quantity}}</p>
+                                <!-- <div class="buttons"> -->
+                                    <button ng-click='ctrl.deleteItem(item.id)'>REMOVE</button>
+                                    <button ng-click='ctrl.decrementQuantity(item)'>DECR</button>
+                                    <button ng-click='ctrl.incrementQuantity(item)'>INCR</button>
+                                <!-- </div> -->
+                                <details>
+                                    <summary>Edit Item</summary>
+                                    <form ng-submit='ctrl.handlePut(item)'>
+                                        <label for="name">Product Name: </label>
+                                        <input type="text" name="name" value="item.name" ng-model="ctrl.nameEdit"/>
+                                        <label for="price">Price: </label>
+                                        <input type="number" name="price" min="0" ng-model="ctrl.priceEdit"/>
+                                        <label for="quantity">Quantity: </label>
+                                        <input type="number" name="quantity" min="0" ng-model="ctrl.quantityEdit"/>
+                                        <input type="submit" value="Submit Edits"/>
+                                    </form>
+                            </details>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
