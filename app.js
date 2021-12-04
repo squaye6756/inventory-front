@@ -16,8 +16,10 @@ app.controller('Controller', ['$http', function($http) {
     this.quantityEdit = null;
     this.priceEdit = null;
     this.nameSearch = null;
-    this.quantitySearch = null;
-    this.priceSearch = null;
+    this.minQuanSearch = null;
+    this.maxQuanSearch = null;
+    this.minPriceSearch = null;
+    this.maxPriceSearch = null;
     this.useSearch = false;
     this.searchItemList = null;
 
@@ -208,34 +210,25 @@ app.controller('Controller', ['$http', function($http) {
     }
 
     this.search = () => {
-        // console.log(this.itemList);
-        // for (const item of this.itemList) {
-        //     if (!(item.name.includes(this.nameSearch))) {
-        //         console.log('failed name search');
-        //     }
-        //     if (!(item.price <= this.priceSearch)) {
-        //         console.log('failed price search');
-        //         console.log('price searched', this.priceSearch);
-        //         console.log('price of item', item.price);
-        //     }
-        //     if (!(item.quantity >= this.quantitySearch)) {
-        //         console.log('failed quantity search');
-        //         console.log('quantity searched', this.quantitySearch);
-        //         console.log('quantity of item', item.quantity);
-        //     }
-        // }
-        this.searchItemList = this.itemList.filter((item) => {
-            return (
-                (item.name.includes(this.nameSearch) || !this.nameSearch)
-                && (item.price <= this.priceSearch || !this.priceSearch)
-                && (item.quantity >= this.quantitySearch || !this.quantitySearch)
-            );
-        });
-        this.nameSearch = null;
-        this.quantitySearch = null;
-        this.priceSearch = null;
-        this.useSearch = true;
-        // console.log('result', this.searchItemList);
+        if (this.nameSearch
+        || (this.maxPriceSearch || this.maxPriceSearch === 0)
+        || (this.minPriceSearch || this.minPriceSearch === 0)
+        || (this.maxQuanSearch || this.maxQuanSearch === 0)
+        || (this.minQuanSearch || this.minQuanSearch === 0)) {
+            this.searchItemList = this.itemList.filter((item) => {
+                return (
+                    (item.name.includes(this.nameSearch) || !this.nameSearch)
+                    && (item.price <= this.maxPriceSearch || !this.maxPriceSearch && this.maxPriceSearch !== 0)
+                    && (item.price >= this.minPriceSearch || !this.minPriceSearch && this.minPriceSearch !== 0)
+                    && (item.quantity <= this.maxQuanSearch || !this.maxQuanSearch && this.maxQuanSearch !== 0)
+                    && (item.quantity >= this.minQuanSearch || !this.minQuanSearch && this.minQuanSearch !== 0)
+                );
+            });
+            this.nameSearch = null;
+            this.quantitySearch = null;
+            this.priceSearch = null;
+            this.useSearch = true;
+        }
     }
 
     this.endSearch = () => {
