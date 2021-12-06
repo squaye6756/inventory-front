@@ -22,6 +22,7 @@ app.controller('Controller', ['$http', function($http) {
     this.useSearch = false;
     this.searchItemList = null;
     this.haveAcct = true;
+    this.authFailure = false;
 
     this.createUser = () => {
         $http(
@@ -55,11 +56,13 @@ app.controller('Controller', ['$http', function($http) {
             }
         )
         .then((response) => {
+            this.authFailure = false;
             if (response.data.username) {
                 this.loggedInUser = response.data;
                 inventorialStorage.setItem('user', JSON.stringify(this.loggedInUser));
             } else {
-                console.log('unsuccessful login', response.data.error);
+                this.authFailure = true;
+                document.getElementById('auth-fail').innerHTML = response.data.error;
             }
             this.usernameId = null;
             this.passwordId = null;
