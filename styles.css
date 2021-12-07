@@ -48,3 +48,7 @@
 #toggle-auth-btn {
     margin-top: 0.7em;
 }
+
+.auth-form-elmt {
+    margin: 0.5em auto;
+}
